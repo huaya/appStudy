@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="question_text">君士坦丁堡是土耳其最大的城市吗？</string>
+    <string name="first_fragment_label">第一个Fragment</string>
+    <string name="second_fragment_label">第二个Fragment</string>
+    <string name="to_quiz">TO QUIZ</string>
+</resources>

@@ -28,4 +28,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         />
+
+    <Button
+        android:id="@+id/to_quiz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/to_quiz"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="573dp"
+        tools:ignore="MissingConstraints" />
 </android.support.constraint.ConstraintLayout>
