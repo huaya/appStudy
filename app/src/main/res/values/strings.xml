@@ -14,4 +14,5 @@
     <string name="true_button" translatable="false">True</string>
     <string name="false_button" translatable="false">False</string>
     <string name="to_quiz" tools:ignore="ExtraTranslation">TO QUIZ</string>
+    <string name="quiz_activity">QUIZ</string>
 </resources>

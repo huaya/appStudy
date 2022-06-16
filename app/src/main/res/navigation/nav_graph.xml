@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_To_Quiz"
+            app:destination="@id/QuizActivity"/>
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -25,4 +28,12 @@
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
+
+    <activity
+        android:id="@+id/QuizActivity"
+        android:name="com.example.appstduy.QuizActivity"
+        android:label="@string/quiz_activity"
+        tools:layout="@layout/activity_quiz">
+    </activity>
+
 </navigation>
