@@ -11,8 +11,10 @@
     <string name="hello_second_fragment" translatable="false">Hello second fragment. Arg: %1$s</string>
     <string name="hello_world" translatable="false">Hello world!</string>
     <string name="question_text">Constantinople is the largest city in Turkey?</string>
-    <string name="true_button" translatable="false">True</string>
-    <string name="false_button" translatable="false">False</string>
+    <string name="true_button">True</string>
+    <string name="false_button">False</string>
     <string name="to_quiz" tools:ignore="ExtraTranslation">TO QUIZ</string>
     <string name="quiz_activity">QUIZ</string>
+    <string name="correct_toast">Correct!</string>
+    <string name="incorrect_toast">Incorrect!</string>
 </resources>
