@@ -53,11 +53,32 @@
                 android:textColor="#00796B"/>
         </LinearLayout>
 
-        <Button
-            android:id="@+id/next_button"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/next_button" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/prev_button"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/arrow_left"
+                android:drawablePadding="4dp"
+                android:text="@string/prev_button"
+                android:textColor="#00796B" />
+
+            <Button
+                android:id="@+id/next_button"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/arrow_right"
+                android:drawablePadding="4dp"
+                android:text="@string/next_button"
+                android:textColor="#00796B"
+                tools:ignore="RtlHardcoded" />
+        </LinearLayout>
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
