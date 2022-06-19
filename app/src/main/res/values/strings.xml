@@ -10,11 +10,19 @@
     <string name="hello_first_fragment" translatable="false">Hello first fragment</string>
     <string name="hello_second_fragment" translatable="false">Hello second fragment. Arg: %1$s</string>
     <string name="hello_world" translatable="false">Hello world!</string>
-    <string name="question_text">Constantinople is the largest city in Turkey?</string>
     <string name="true_button">True</string>
     <string name="false_button">False</string>
     <string name="to_quiz" tools:ignore="ExtraTranslation">TO QUIZ</string>
     <string name="quiz_activity">QUIZ</string>
     <string name="correct_toast">Correct!</string>
     <string name="incorrect_toast">Incorrect!</string>
+    <string name="next_button">NEXT</string>
+
+    <string name="question_turkey">Constantinople is the largest city in Turkey?</string>
+    <string name ="question_oceans">The Pacific Ocean is larger than the Atlantic Ocean. </string >
+    <string name ="question_mideast">The Suez Canal connects the Red Sea and the Indian Ocean. </string >
+    <string name ="question_africa">The source of the Nile River is in Egypt. </string >
+    <string name ="question_americas">The Amazon River is the longest river in the Americas. </string >
+    <string name ="question_asia">Lake Baikal is the world\' s oldest and deepest freshwater lake. </string >
+
 </resources>

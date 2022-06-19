@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="question_text">君士坦丁堡是土耳其最大的城市吗？</string>
     <string name="first_fragment_label">第一个Fragment</string>
     <string name="second_fragment_label">第二个Fragment</string>
     <string name="to_quiz">TO QUIZ</string>
@@ -9,4 +8,11 @@
     <string name="correct_toast">正确！</string>
     <string name="true_button">对</string>
     <string name="false_button">错</string>
+    <string name="next_button">下一个</string>
+    <string name="question_turkey">君士坦丁堡是土耳其最大的城市吗？</string>
+    <string name="question_oceans">"The Pacific Ocean is larger than the Atlantic Ocean. "</string>
+    <string name="question_mideast">"The Suez Canal connects the Red Sea and the Indian Ocean. "</string>
+    <string name="question_americas">"The Amazon River is the longest river in the Americas. "</string>
+    <string name="question_africa">"The source of the Nile River is in Egypt. "</string>
+    <string name="question_asia">"Lake Baikal is the world' s oldest and deepest freshwater lake. "</string>
 </resources>
