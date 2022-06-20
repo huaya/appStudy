@@ -1,5 +1,6 @@
 package com.example.appstduy;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,9 +25,11 @@ public class QuizActivity extends AppCompatActivity {
 
     private Button mPrveButton;
 
+    private Button mCheatButton;
+
     private TextView mQuestionTextView;
 
-    private Question[] mQuestionBank = new Question[]{
+    private final Question[] mQuestionBank = new Question[]{
             new Question(R.string.question_africa, false),
             new Question(R.string.question_turkey, true),
             new Question(R.string.question_asia, true),
@@ -65,6 +68,12 @@ public class QuizActivity extends AppCompatActivity {
         mFalseButton.setOnClickListener(view -> {
             Log.i(TAG, "false button click!");
             checkAnswer(false);
+        });
+
+        mCheatButton = findViewById(R.id.cheat_button);
+        mCheatButton.setOnClickListener(view -> {
+            Intent intent = new Intent(QuizActivity.this, CheatActivity.class);
+            startActivity(intent);
         });
 
         mNextButton = findViewById(R.id.next_button);
