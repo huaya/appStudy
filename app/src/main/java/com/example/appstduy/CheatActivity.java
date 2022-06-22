@@ -5,10 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
 public class CheatActivity extends AppCompatActivity {
+
+    private static final String TAG = "CheatActivity";
 
     public static final String EXTRA_ANSWER_IS_TRUE = "com.bignerdranch.android.geoquiz.answer_is_true";
 
@@ -20,6 +23,8 @@ public class CheatActivity extends AppCompatActivity {
 
     private Button mShowAnswer;
 
+    private TextView mWarningText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +33,10 @@ public class CheatActivity extends AppCompatActivity {
         mAnswerIsTrue = getIntent().getBooleanExtra(EXTRA_ANSWER_IS_TRUE, false);
 
         mAnswerTextView = findViewById(R.id.answer_text_view);
+
+        mWarningText = findViewById(R.id.warning_text);
+
+        Log.d(TAG, "哈哈哈啊哈哈哈");
 
         mShowAnswer = findViewById(R.id.show_answer_button);
         mShowAnswer.setOnClickListener(view -> {
