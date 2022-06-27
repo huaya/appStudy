@@ -1,11 +1,17 @@
 package com.example.appstduy;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -25,6 +31,7 @@ public class CheatActivity extends AppCompatActivity {
 
     private TextView mWarningText;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,12 +43,25 @@ public class CheatActivity extends AppCompatActivity {
 
         mWarningText = findViewById(R.id.warning_text);
 
-        Log.d(TAG, "哈哈哈啊哈哈哈");
-
         mShowAnswer = findViewById(R.id.show_answer_button);
         mShowAnswer.setOnClickListener(view -> {
             mAnswerTextView.setText(mAnswerIsTrue ? R.string.true_button : R.string.false_button);
             setAnswerShownResult(true);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                int cx = mShowAnswer.getWidth() / 2;
+                int cy = mShowAnswer.getHeight() / 2;
+                float radius = mShowAnswer.getWidth();
+                Animator anim = ViewAnimationUtils.createCircularReveal(mShowAnswer, cx, cy, radius, 0);
+                anim.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        mShowAnswer.setVisibility(View.INVISIBLE);
+                    }
+                });
+                anim.start();
+            }
         });
     }
 
