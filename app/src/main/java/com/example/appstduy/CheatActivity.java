@@ -2,6 +2,7 @@ package com.example.appstduy;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -27,10 +28,13 @@ public class CheatActivity extends AppCompatActivity {
 
     private TextView mAnswerTextView;
 
+    private TextView mApiLevelTextView;
+
     private Button mShowAnswer;
 
     private TextView mWarningText;
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,8 @@ public class CheatActivity extends AppCompatActivity {
         mAnswerIsTrue = getIntent().getBooleanExtra(EXTRA_ANSWER_IS_TRUE, false);
 
         mAnswerTextView = findViewById(R.id.answer_text_view);
+        mApiLevelTextView = findViewById(R.id.api_level);
+        mApiLevelTextView.setText("API level " + Build.VERSION.SDK_INT);
 
         mWarningText = findViewById(R.id.warning_text);
 
@@ -57,7 +63,7 @@ public class CheatActivity extends AppCompatActivity {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         super.onAnimationEnd(animation);
-                        mShowAnswer.setVisibility(View.INVISIBLE);
+//                        mShowAnswer.setVisibility(View.INVISIBLE);
                     }
                 });
                 anim.start();
