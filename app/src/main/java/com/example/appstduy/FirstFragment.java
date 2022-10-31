@@ -35,6 +35,9 @@ public class FirstFragment extends Fragment {
 
         binding.toQuiz.setOnClickListener(v -> NavHostFragment.findNavController(FirstFragment.this)
                 .navigate(R.id.action_To_Quiz));
+
+        binding.toHilink.setOnClickListener(v -> NavHostFragment.findNavController(FirstFragment.this)
+                .navigate(R.id.action_To_hilink));
     }
 
     @Override

@@ -15,27 +15,37 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/button_first"
+        app:layout_constraintBottom_toTopOf="@id/linear"
         />
 
-    <Button
-        android:id="@+id/button_first"
+    <LinearLayout
+        android:id="@+id/linear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_first"
-        tools:ignore="DuplicateClickableBoundsCheck"/>
+        app:layout_constraintTop_toBottomOf="@id/textview_first">
 
-    <Button
-        android:id="@+id/to_quiz"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/to_quiz"
-        app:layout_constraintTop_toBottomOf="@id/button_first"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        <Button
+            android:id="@+id/button_first"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/next"
+            tools:ignore="DuplicateClickableBoundsCheck"/>
+
+        <Button
+            android:id="@+id/to_quiz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/to_quiz" />
+
+        <Button
+            android:id="@+id/to_hilink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/to_hilink" />
+    </LinearLayout>
+
+
 </android.support.constraint.ConstraintLayout>

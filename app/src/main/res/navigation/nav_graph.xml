@@ -17,7 +17,11 @@
         <action
             android:id="@+id/action_To_Quiz"
             app:destination="@id/QuizActivity"/>
+        <action
+            android:id="@+id/action_To_hilink"
+            app:destination="@id/HilinkFragment"/>
     </fragment>
+
     <fragment
         android:id="@+id/SecondFragment"
         android:name="com.example.appstduy.SecondFragment"
@@ -27,6 +31,17 @@
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/HilinkFragment"
+        android:name="com.example.appstduy.HilinkFragment"
+        android:label="@string/hilink_fragment_label"
+        tools:layout="@layout/fragment_hilink" >
+
+        <action
+            android:id="@+id/action_FirstFragment_to_HilinkFragment"
+            app:destination="@id/HilinkFragment" />
     </fragment>
 
     <activity
