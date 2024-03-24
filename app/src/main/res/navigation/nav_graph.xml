@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_To_hilink"
             app:destination="@id/HilinkFragment"/>
+        <action
+            android:id="@+id/action_To_Dashboard"
+            app:destination="@id/DashboardActivity"/>
     </fragment>
 
     <fragment
@@ -51,4 +54,10 @@
         tools:layout="@layout/activity_quiz">
     </activity>
 
+    <activity
+        android:id="@+id/DashboardActivity"
+        android:name="com.example.appstduy.DashboardActivity"
+        android:label="@string/quiz_activity"
+        tools:layout="@layout/activity_dashboard">
+    </activity>
 </navigation>

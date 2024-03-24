@@ -3,6 +3,7 @@
     <string name="first_fragment_label">第一个Fragment</string>
     <string name="second_fragment_label">第二个Fragment</string>
     <string name="to_quiz">TO QUIZ</string>
+    <string name="to_dashboard">TO DASHBOARD</string>
     <string name="quiz_activity">QUIZ</string>
     <string name="incorrect_toast">错误！</string>
     <string name="correct_toast">正确！</string>

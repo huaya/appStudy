@@ -36,8 +36,7 @@
         android:text="@string/to_quiz"
         app:layout_constraintTop_toBottomOf="@id/button_first"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <Button
         android:id="@+id/to_hilink"
@@ -46,6 +45,14 @@
         android:text="@string/to_hilink"
         app:layout_constraintTop_toBottomOf="@id/to_quiz"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <Button
+        android:id="@+id/to_dashboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/to_dashboard"
+        app:layout_constraintTop_toBottomOf="@id/to_hilink"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 </android.support.constraint.ConstraintLayout>
