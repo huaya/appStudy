@@ -85,13 +85,13 @@ public class DashboardView extends View {
         arcPaint = new Paint();
         arcPaint.setStyle(Paint.Style.STROKE);//画线模式
         arcPaint.setStrokeWidth(arcW);//线宽度
-//        arcPaint.setColor(getResources().getColor(R.color.blue));
+        arcPaint.setColor(getResources().getColor(R.color.kedu));
         arcPaint.setAlpha(80);
         arcPaint.setAntiAlias(true);
         //刻度
         pointerPaint = new Paint();
         pointerPaint.setAntiAlias(true);
-        pointerPaint.setColor(Color.parseColor("#26396F"));
+        pointerPaint.setColor(getResources().getColor(R.color.blue));
         pointerPaint.setTextSize(40);
         pointerPaint.setTextAlign(Paint.Align.RIGHT);
 
@@ -268,6 +268,7 @@ public class DashboardView extends View {
      * @param speedssss .
      */
     public void udDataSpeed(int speedssss) {
+        Log.i(TAG, "speedssss::" + speedssss );
         float a = SWEEPANGLE / 180f;
         if (speedssss < 0) throw new IllegalArgumentException("----speed不能小于0----");
         speed = String.valueOf(speedssss);
@@ -284,7 +285,7 @@ public class DashboardView extends View {
             }
             boolean running = mAnim.isRunning();
             boolean started = mAnim.isStarted();
-            Log.i(TAG, "startAnimation: running:" + running + "--started" + started);
+            Log.d(TAG, "startAnimation: running:" + running + "--started" + started);
         }
         mAnim = ValueAnimator.ofFloat(start, end);
         //anim.setRepeatCount(ValueAnimator.INFINITE);//设置无限重复

@@ -1,19 +1,13 @@
 package com.example.appstduy;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Build;
+import android.os.Message;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.MotionEvent;
+import android.util.Log;
 import android.view.View;
-import android.view.WindowInsets;
 import android.widget.Button;
-
-import com.example.appstduy.databinding.ActivityDashboardBinding;
 
 import java.util.Random;
 
@@ -22,10 +16,24 @@ import java.util.Random;
  * status bar and navigation/system bar) with user interaction.
  */
 public class DashboardActivity extends Activity implements View.OnClickListener  {
+    private static final String TAG = "DashboardActivity";
+
+    private static final int START_TEST_MSG = 1;
 
     private DashboardView dashboardView;
 
     private Button button;
+
+    private final Handler handler = new Handler(Looper.getMainLooper()) {
+        @Override
+        public void handleMessage(Message msg) {
+            Log.i(TAG, "handleMessage:" + msg.what);
+            if (msg.what == START_TEST_MSG) {
+                startTest();
+                this.sendEmptyMessageDelayed(START_TEST_MSG, 1000);
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +46,11 @@ public class DashboardActivity extends Activity implements View.OnClickListener 
 
     @Override
     public void onClick(View view) {
-        startTest();
+        handler.sendEmptyMessageDelayed(START_TEST_MSG, 0);
     }
 
     private void startTest() {
-//        Random random = new Random();
-//        for (int i = 0; i < 100; i++) {
-//            dashboardView.udDataSpeed(random.nextInt(280));
-//        }
-        dashboardView.udDataSpeed(50);
+        Random random = new Random();
+        dashboardView.udDataSpeed(random.nextInt(180));
     }
 }
