@@ -8,23 +8,33 @@
 
     <com.example.appstduy.DashboardView
         android:id="@+id/scal_blu"
-        android:layout_width="350dp"
-        android:layout_height="350dp"
-        android:layout_marginTop="200dp"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="80dp"
         android:layout_gravity="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.example.appstduy.util.CanvaTestView
+        android:id="@+id/canva_test"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scal_blu"/>
 
     <Button
         android:id="@+id/start_test"
         android:text="开始测试"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginBottom="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/scal_blu">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/canva_test">
     </Button>
-
 </android.support.constraint.ConstraintLayout>

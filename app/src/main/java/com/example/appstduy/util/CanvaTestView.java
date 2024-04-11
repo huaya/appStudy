@@ -1,4 +1,4 @@
-package com.example.appstduy;
+package com.example.appstduy.util;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -13,6 +13,8 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
+import com.example.appstduy.R;
+
 import org.jetbrains.annotations.Nullable;
 
 
@@ -20,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
  * @content:注意:因为是在固定开发板用,没怎么考虑适配情况. * 1.表盘大小是根据控件xml布局文件的width决定
  * * 2.控件宽度太小可能刻度文字显示不全,可以看情况调整下文字大小.
  */
-public class DashboardView extends View {
+public class CanvaTestView extends View {
     private static final String TAG = "DashboardView";
     private Paint arcPaint;
     //圆环的角度
@@ -59,13 +61,13 @@ public class DashboardView extends View {
     private Paint mPaint;
     private ValueAnimator mAnim;
 
-    public DashboardView(Context context) {
+    public CanvaTestView(Context context) {
         super(context);
         init(context);
     }
 
 
-    public DashboardView(Context context, @Nullable AttributeSet attrs) {
+    public CanvaTestView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
