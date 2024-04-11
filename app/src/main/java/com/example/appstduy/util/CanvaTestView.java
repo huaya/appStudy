@@ -50,8 +50,6 @@ public class CanvaTestView extends View {
     //阴影宽度
     private int shade_w = 40;
 
-    private Path pointerPath;
-
     private float currentDegree = 0;
     //指针当前的角度.
     private int startAngele = 90 + (360 - SWEEPANGLE) / 2;
@@ -101,8 +99,6 @@ public class CanvaTestView extends View {
         pointerPaint.setTextSize(40);
         pointerPaint.setTextAlign(Paint.Align.RIGHT);
 
-        pointerPath = new Path();
-
         //发光圆环
         gleamyArcPaint = new Paint();
         gleamyArcPaint.setAntiAlias(true);
@@ -134,7 +130,6 @@ public class CanvaTestView extends View {
         //半径
 //        int dyRaduis = (int) (getMeasuredWidth() / 2 * 0.88);
         int dyRaduis = mRadius;
-        int w = 0;
         int[] colorSweep = new int[]{Color.parseColor("#FFFFFF"), Color.parseColor("#0541ED")};
         float[] position = new float[]{0f, 0.5f};
         SweepGradient mShader = new SweepGradient(getMeasuredWidth() / 2, getMeasuredHeight() / 2, colorSweep, position);
@@ -146,10 +141,10 @@ public class CanvaTestView extends View {
         mPaint.setShader(mShader);
 
         RectF rectF = new RectF();
-        rectF.left = (float) (getMeasuredWidth() / 2 - (dyRaduis - w / 2));
-        rectF.top = (float) (getMeasuredHeight() / 2 - (dyRaduis - w / 2));
-        rectF.right = (float) (getMeasuredWidth() / 2 + (dyRaduis - w / 2));
-        rectF.bottom = (float) (getMeasuredHeight() / 2 + (dyRaduis - w / 2));
+        rectF.left = (float) (getMeasuredWidth() / 2 - dyRaduis);
+        rectF.top = (float) (getMeasuredHeight() / 2 -dyRaduis);
+        rectF.right = (float) (getMeasuredWidth() / 2 + dyRaduis);
+        rectF.bottom = (float) (getMeasuredHeight() / 2 + dyRaduis);
         canvas.drawArc(rectF, startAngele, currentDegree, false, mPaint);
     }
 
@@ -169,7 +164,7 @@ public class CanvaTestView extends View {
         //原点移到空间中心点
         canvas.translate(getMeasuredWidth() / 2, getMeasuredHeight() / 2);
 
-        canvas.rotate((360 - SWEEPANGLE) / 2 + 90);//(360-240)/2+90;
+        canvas.rotate((360 - SWEEPANGLE) / 2 + 90);
         //设置刻度文字颜色大小.
         mTextPaint.reset();
         mTextPaint.setColor(Color.parseColor("#ffffff"));
