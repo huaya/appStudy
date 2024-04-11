@@ -60,6 +60,7 @@ public class CanvaTestView extends View {
     private Paint mTextPaint;
     private Paint mPaint;
     private ValueAnimator mAnim;
+    private int clockPointNum = 40;
 
     public CanvaTestView(Context context) {
         super(context);
@@ -81,11 +82,14 @@ public class CanvaTestView extends View {
         mPaint = new Paint();
         mPaint.setStyle(Paint.Style.STROKE);//画线模式
         mPaint.setStrokeWidth(arcW);//线宽度
+        mPaint.setColor(Color.WHITE);
+        mPaint.setStrokeCap(Paint.Cap.ROUND);
         mPaint.setAntiAlias(true);
 
         //圆环画笔
         arcPaint = new Paint();
         arcPaint.setStyle(Paint.Style.STROKE);//画线模式
+        arcPaint.setStrokeCap(Paint.Cap.ROUND);
         arcPaint.setStrokeWidth(arcW);//线宽度
         arcPaint.setColor(getResources().getColor(R.color.kedu));
         arcPaint.setAlpha(80);
@@ -115,14 +119,9 @@ public class CanvaTestView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
-        mRadius = (int) (getMeasuredWidth() / 2) - 30;
+        mRadius = (getMeasuredWidth() / 2) - 30;
         mRadiusG = mRadius - gleamyArcW / 2;
         shade_w = (int) (mRadius * 0.4);
-        //Log.i(TAG, "onDraw: mRadius"+mRadius+"mRadiusG:"+mRadiusG+"shade_w:"+shade_w);
-
-        //Log.i(TAG, "onDraw1: w:"+getMeasuredWidth()+"h:"+getMeasuredHeight());
-        //Log.i(TAG, "onDraw2: w:"+getWidth()+"h:"+getHeight());
         //最外层白色动态圆环
         drawDynamicArcs(canvas);
         //圆环
@@ -136,27 +135,29 @@ public class CanvaTestView extends View {
 //        int dyRaduis = (int) (getMeasuredWidth() / 2 * 0.88);
         int dyRaduis = mRadius;
         int w = 0;
-        int[] colorSweep = new int[]{Color.parseColor("#518CFF"), Color.parseColor("#518CFF")};
-//        int[] colorSweep = new int[]{Color.parseColor("#518CFF"), Color.parseColor("#518CFF")};
+        int[] colorSweep = new int[]{Color.parseColor("#FFFFFF"), Color.parseColor("#0541ED")};
         float[] position = new float[]{0f, 0.5f};
         SweepGradient mShader = new SweepGradient(getMeasuredWidth() / 2, getMeasuredHeight() / 2, colorSweep, position);
 
         //旋转渐变
         Matrix matrix = new Matrix();
-        matrix.setRotate(startAngele, canvas.getWidth() / 2, canvas.getHeight() / 2);
+        matrix.setRotate(startAngele - 6, canvas.getWidth() / 2, canvas.getHeight() / 2);
         mShader.setLocalMatrix(matrix);
         mPaint.setShader(mShader);
-//        arcPaint.setStyle(Paint.Style.STROKE);
-//        mPaint.setStrokeWidth(w);
+
         RectF rectF = new RectF();
         rectF.left = (float) (getMeasuredWidth() / 2 - (dyRaduis - w / 2));
         rectF.top = (float) (getMeasuredHeight() / 2 - (dyRaduis - w / 2));
         rectF.right = (float) (getMeasuredWidth() / 2 + (dyRaduis - w / 2));
         rectF.bottom = (float) (getMeasuredHeight() / 2 + (dyRaduis - w / 2));
-        canvas.drawArc(rectF, 90 + (360 - SWEEPANGLE) / 2, currentDegree, false, mPaint);
+        canvas.drawArc(rectF, startAngele, currentDegree, false, mPaint);
     }
 
-    int clockPointNum = 40;
+    private void drawArcs(Canvas canvas) {
+        RectF rectF = new RectF(getMeasuredWidth() / 2 - mRadius, getMeasuredHeight() / 2 - mRadius, getMeasuredWidth() / 2 + mRadius, getMeasuredHeight() / 2 + mRadius);
+
+        canvas.drawArc(rectF, 90 + (360 - SWEEPANGLE) / 2, SWEEPANGLE, false, arcPaint);
+    }
 
     private void drawDegree(Canvas canvas) {
         pointerPaint.setColor(Color.parseColor("#ffffff"));
@@ -205,13 +206,10 @@ public class CanvaTestView extends View {
         //动态设置刻度文字颜色。
         float a = (float) SWEEPANGLE / (float) clockPointNum;
 
-        if (currentDegree > a * i)
-            mTextPaint.setColor(Color.WHITE);
-        else
-            mTextPaint.setColor(Color.parseColor("#ffffff"));
+        if (currentDegree > a * i) mTextPaint.setColor(Color.WHITE);
+        else mTextPaint.setColor(Color.parseColor("#ffffff"));
 
-        if (i != 0)
-            count += 10;
+        if (i != 0) count += 10;
         //canvas.drawText(String.valueOf(count), x - maxScaleLength, y, mTextPaint);
 
         //保存状态
@@ -240,29 +238,7 @@ public class CanvaTestView extends View {
         canvas.drawText(String.valueOf(count / 10), 5, baseLineY, mTextPaint);
         //恢复对canvas操作
         canvas.restore();
-
- /*刻度数字 水平改弧形 替换canvas.save() -- canvas.restore()之间的内容;
-       //保存状态
-        canvas.save();
-
-        canvas.translate(mRadiusG - maxScaleLength, y);
-        canvas.rotate(90);
-
-        mTextPaint.setTextAlign(Paint.Align.CENTER);
-        canvas.drawText(String.valueOf(count), 0, 40, mTextPaint);
-        //恢复对canvas操作
-        canvas.restore();*/
     }
-
-    private void drawArcs(Canvas canvas) {
-//        RectF rectF = new RectF(getMeasuredWidth() / 2 - mRadius, getMeasuredHeight() / 2 - mRadius,
-//                getMeasuredWidth() / 2 + mRadius, getMeasuredHeight() / 2 + mRadius);
-        RectF rectF = new RectF(getMeasuredWidth() / 2 - mRadius, getMeasuredHeight() / 2 - mRadius,
-                getMeasuredWidth() / 2 + mRadius, getMeasuredHeight() / 2 + mRadius);
-
-        canvas.drawArc(rectF, 90 + (360 - SWEEPANGLE) / 2, SWEEPANGLE, false, arcPaint);
-    }
-
 
     /**
      * 外部更新刻度.
@@ -270,7 +246,7 @@ public class CanvaTestView extends View {
      * @param speedssss .
      */
     public void udDataSpeed(int speedssss) {
-        Log.i(TAG, "speedssss::" + speedssss );
+        Log.i(TAG, "speedssss::" + speedssss);
         float a = SWEEPANGLE / 180f;
         if (speedssss < 0) throw new IllegalArgumentException("----speed不能小于0----");
         speed = String.valueOf(speedssss);
