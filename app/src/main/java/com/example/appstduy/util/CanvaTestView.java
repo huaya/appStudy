@@ -43,8 +43,7 @@ public class CanvaTestView extends View {
     int maxScalew = 5;
     //刻度的长度
     int maxScaleLength = 5;
-    int minScaleLength = 30;
-    private Paint gleamyArcPaint;
+    int minScaleLength = -30;
     //发光圆环的半径
     private int mRadiusG;
     //阴影宽度
@@ -57,6 +56,11 @@ public class CanvaTestView extends View {
     private String speed = "0";
     private Paint mTextPaint;
     private Paint mPaint;
+
+    private Paint mPointerPaint;
+
+    private Paint mCenterRingPaint;
+
     private ValueAnimator mAnim;
     private int clockPointNum = 40;
 
@@ -99,17 +103,18 @@ public class CanvaTestView extends View {
         pointerPaint.setTextSize(40);
         pointerPaint.setTextAlign(Paint.Align.RIGHT);
 
-        //发光圆环
-        gleamyArcPaint = new Paint();
-        gleamyArcPaint.setAntiAlias(true);
-        gleamyArcPaint.setStyle(Paint.Style.STROKE);
-        gleamyArcPaint.setStrokeWidth(gleamyArcW);
         //文字
         mTextPaint = new Paint();
         mTextPaint.setAntiAlias(true);
         mTextPaint.setColor(Color.WHITE);
         mTextPaint.setTextAlign(Paint.Align.CENTER);
         mTextPaint.setTextSize(60);
+
+        mPointerPaint = new Paint();
+        mPointerPaint.setAntiAlias(true);
+
+        mCenterRingPaint = new Paint();
+        mCenterRingPaint.setAntiAlias(true);
     }
 
     @Override
@@ -124,9 +129,69 @@ public class CanvaTestView extends View {
         drawArcs(canvas);
         //刻度
         drawDegree(canvas);
+
+        drawCenterRing(canvas);
+        // 指针
+        drawPointer(canvas);
+    }
+
+    private void drawCenterRing(Canvas canvas) {
+        canvas.save();
+        mCenterRingPaint.setStyle(Paint.Style.STROKE);//画线模式
+        mCenterRingPaint.setStrokeWidth(50);//线宽度
+        mCenterRingPaint.setStrokeCap(Paint.Cap.ROUND);
+
+        int ringWidth = 100;
+        RectF rectF = new RectF(getMeasuredWidth() / 2 - ringWidth, getMeasuredHeight() / 2 - ringWidth,
+                getMeasuredWidth() / 2 + ringWidth, getMeasuredHeight() / 2 + ringWidth);
+        mCenterRingPaint.setColor(Color.parseColor("#278EF7"));
+        canvas.drawArc(rectF, 0, 360, true, mCenterRingPaint);
+
+        int ringWidth2 = 50;
+        mCenterRingPaint.setStyle(Paint.Style.FILL);//画线模式
+        RectF rectF2 = new RectF(getMeasuredWidth() / 2 - ringWidth2, getMeasuredHeight() / 2 - ringWidth2,
+                getMeasuredWidth() / 2 + ringWidth2, getMeasuredHeight() / 2 + ringWidth2);
+        mCenterRingPaint.setColor(Color.parseColor("#195EA1"));
+        canvas.drawArc(rectF2, 0, 360, true, mCenterRingPaint);
+        canvas.restore();
+    }
+
+    private void drawPointer(Canvas canvas) {
+        canvas.rotate(310, getMeasuredWidth() / 2, getMeasuredHeight() / 2);
+        canvas.rotate(currentDegree, getMeasuredWidth() / 2, getMeasuredHeight() / 2);
+
+        int pointerWidth = 20;
+
+        mPointerPaint.setStyle(Paint.Style.FILL);//画线模式
+        RectF rectF = new RectF(getMeasuredWidth() / 2 - pointerWidth, getMeasuredHeight() / 2 - pointerWidth,
+                getMeasuredWidth() / 2 + pointerWidth, getMeasuredHeight() / 2 + pointerWidth);
+
+        Path path1 = new Path();
+        path1.moveTo(getMeasuredHeight() / 2 - mRadiusG + minScaleLength - 5, getMeasuredHeight() / 2); // 顶点
+        path1.lineTo(getMeasuredWidth() / 2, getMeasuredHeight() / 2); // 左下角
+        path1.lineTo(getMeasuredWidth() / 2, getMeasuredHeight() / 2 - pointerWidth); // 右下角
+        path1.close(); // 关闭路径形成三角形
+
+        mPointerPaint.setColor(Color.parseColor("#E0DDD4"));
+        canvas.drawPath(path1, mPointerPaint);
+        canvas.drawArc(rectF, 270, 90, true, mPointerPaint);
+
+        Path path2 = new Path();
+        path2.moveTo(getMeasuredHeight() / 2 - mRadiusG + minScaleLength, getMeasuredHeight() / 2); // 顶点
+        path2.lineTo(getMeasuredWidth() / 2, getMeasuredHeight() / 2); // 左下角
+        path2.lineTo(getMeasuredWidth() / 2, getMeasuredHeight() / 2 + pointerWidth); // 右下角
+        path2.close(); // 关闭路径形成三角形
+
+        mPointerPaint.setColor(Color.parseColor("#F6EFE9"));
+        canvas.drawPath(path2, mPointerPaint);
+        canvas.drawArc(rectF, 0, 90, true, mPointerPaint);
+
+        mPointerPaint.setColor(Color.parseColor("#C0B6B4"));
+        canvas.drawCircle(getMeasuredWidth() / 2, getMeasuredHeight() / 2, 10, mPointerPaint);
     }
 
     private void drawDynamicArcs(Canvas canvas) {
+        canvas.save();
         //半径
 //        int dyRaduis = (int) (getMeasuredWidth() / 2 * 0.88);
         int dyRaduis = mRadius;
@@ -146,12 +211,15 @@ public class CanvaTestView extends View {
         rectF.right = (float) (getMeasuredWidth() / 2 + dyRaduis);
         rectF.bottom = (float) (getMeasuredHeight() / 2 + dyRaduis);
         canvas.drawArc(rectF, startAngele, currentDegree, false, mPaint);
+        canvas.restore();
     }
 
     private void drawArcs(Canvas canvas) {
+        canvas.save();
         RectF rectF = new RectF(getMeasuredWidth() / 2 - mRadius, getMeasuredHeight() / 2 - mRadius, getMeasuredWidth() / 2 + mRadius, getMeasuredHeight() / 2 + mRadius);
 
         canvas.drawArc(rectF, 90 + (360 - SWEEPANGLE) / 2, SWEEPANGLE, false, arcPaint);
+        canvas.restore();
     }
 
     private void drawDegree(Canvas canvas) {
@@ -181,11 +249,10 @@ public class CanvaTestView extends View {
 
             } else {    //短表针
                 pointerPaint.setStrokeWidth(minScalew);
-//                canvas.drawLine(mRadiusG - arcW, maxScalew / 2, mRadiusG - minScaleLength, maxScalew / 2, pointerPaint);
+                canvas.drawLine(mRadiusG + arcW, maxScalew / 2, mRadiusG - minScaleLength, maxScalew / 2, pointerPaint);
             }
 
             canvas.rotate((float) SWEEPANGLE / (float) clockPointNum);
-            // Log.i(TAG, "onDraw: "+i+"---"+(float) SWEEPANGLE/ (float) clockPointNum);
         }
         //最后一根
         canvas.drawLine(mRadiusG + arcW, -maxScalew / 2, mRadiusG + maxScaleLength, -maxScalew / 2, pointerPaint);
@@ -260,12 +327,9 @@ public class CanvaTestView extends View {
             Log.d(TAG, "startAnimation: running:" + running + "--started" + started);
         }
         mAnim = ValueAnimator.ofFloat(start, end);
-        //anim.setRepeatCount(ValueAnimator.INFINITE);//设置无限重复
-        //anim.setRepeatMode(ValueAnimator.REVERSE);//设置重复模式
         mAnim.setDuration(500);
         mAnim.addUpdateListener(valueAnimator -> {
-            float value = (float) mAnim.getAnimatedValue();
-            currentDegree = value;
+            currentDegree = (float) mAnim.getAnimatedValue();
             invalidate();
         });
         mAnim.start();
