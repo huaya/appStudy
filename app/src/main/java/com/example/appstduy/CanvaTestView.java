@@ -133,8 +133,8 @@ public class CanvaTestView extends View {
 
         drawCenterRing(canvas);
         // 指针
-//        drawPointer(canvas);
-        drawPointer2(canvas);
+        drawPointer(canvas);
+//        drawPointer2(canvas);
     }
 
     private void drawCenterRing(Canvas canvas) {
@@ -158,19 +158,19 @@ public class CanvaTestView extends View {
         canvas.restore();
     }
 
-    private void drawPointer2(Canvas canvas) {
-        canvas.save();
-        mPointerPaint.setColor(Color.RED);
-        // 初始时旋转到0的位置
-        canvas.rotate(310, getMeasuredWidth() / 2, getMeasuredHeight() / 2);
-        canvas.rotate(currentDegree, getMeasuredWidth() / 2, getMeasuredHeight() / 2);
-
-        canvas.drawLine(getMeasuredWidth() / 2,  500, getMeasuredHeight() / 2, getMeasuredWidth() / 2,
-                mPointerPaint);
-        canvas.drawCircle(getMeasuredWidth() / 2, getMeasuredHeight() / 2, 8, mPointerPaint);
-
-        canvas.restore();
-    }
+//    private void drawPointer2(Canvas canvas) {
+//        canvas.save();
+//        mPointerPaint.setColor(Color.RED);
+//        // 初始时旋转到0的位置
+//        canvas.rotate(310, getMeasuredWidth() / 2, getMeasuredHeight() / 2);
+//        canvas.rotate(currentDegree, getMeasuredWidth() / 2, getMeasuredHeight() / 2);
+//
+//        canvas.drawLine(getMeasuredWidth() / 2,  500, getMeasuredHeight() / 2, getMeasuredWidth() / 2,
+//                mPointerPaint);
+//        canvas.drawCircle(getMeasuredWidth() / 2, getMeasuredHeight() / 2, 8, mPointerPaint);
+//
+//        canvas.restore();
+//    }
 
     private void drawPointer(Canvas canvas) {
         canvas.rotate(310, getMeasuredWidth() / 2, getMeasuredHeight() / 2);

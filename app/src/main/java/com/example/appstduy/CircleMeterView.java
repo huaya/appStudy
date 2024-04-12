@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import com.example.appstduy.util.DensityUtil;
@@ -16,6 +17,7 @@ import com.example.appstduy.util.DensityUtil;
  * Created by zhuwentao on 2017-08-26.
  */
 public class CircleMeterView extends View {
+    private static final String TAG = "CircleMeterView";
 
     // 外圆刻度画笔
     private Paint mScalePaint;
@@ -128,6 +130,7 @@ public class CircleMeterView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
         drawArcScale(canvas);
         drawArcInside(canvas);
         drawInsideSumText(canvas);
@@ -251,6 +254,7 @@ public class CircleMeterView extends View {
      * 设置进度
      */
     public void setProgress(int progress) {
+        Log.i(TAG, "setProgress");
 
         // 内部刻度的进度
         this.mInsideProgress = progress;
