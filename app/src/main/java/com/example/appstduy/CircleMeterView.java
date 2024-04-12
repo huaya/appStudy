@@ -85,6 +85,9 @@ public class CircleMeterView extends View {
     }
 
     private void initUI() {
+        // 关闭硬件加速
+        setLayerType(LAYER_TYPE_SOFTWARE, null);
+
         mContext = getContext();
 
         // 刻度圆画笔
@@ -122,7 +125,7 @@ public class CircleMeterView extends View {
         // 指针画笔
         mPointerPaint = new Paint();
         mPointerPaint.setAntiAlias(true);
-        mPointerPaint.setStrokeWidth(DensityUtil.dip2px(mContext, 3));
+        mPointerPaint.setStrokeWidth(DensityUtil.dip2px(mContext, 2));
         mPointerPaint.setColor(pointerColor);
         mPointerPaint.setStrokeCap(Paint.Cap.ROUND);
         mPointerPaint.setStyle(Paint.Style.FILL_AND_STROKE);

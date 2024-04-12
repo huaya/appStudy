@@ -272,7 +272,9 @@ public class DashboardView extends View {
         float a = SWEEPANGLE / 180f;
         if (speedssss < 0) throw new IllegalArgumentException("----speed不能小于0----");
         speed = String.valueOf(speedssss);
-        startAnimation(currentDegree, (float) speedssss * a);
+        currentDegree = (float) speedssss * a;
+        invalidate();
+//        startAnimation(currentDegree, (float) speedssss * a);
     }
 
     //指针+阴影偏移动画.
