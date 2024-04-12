@@ -1,4 +1,4 @@
-package com.example.appstduy.util;
+package com.example.appstduy;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -120,6 +120,7 @@ public class CanvaTestView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        canvas.drawColor(Color.TRANSPARENT);
         mRadius = (getMeasuredWidth() / 2) - 30;
         mRadiusG = mRadius - gleamyArcW / 2;
         shade_w = (int) (mRadius * 0.4);
@@ -132,7 +133,8 @@ public class CanvaTestView extends View {
 
         drawCenterRing(canvas);
         // 指针
-        drawPointer(canvas);
+//        drawPointer(canvas);
+        drawPointer2(canvas);
     }
 
     private void drawCenterRing(Canvas canvas) {
@@ -153,6 +155,20 @@ public class CanvaTestView extends View {
                 getMeasuredWidth() / 2 + ringWidth2, getMeasuredHeight() / 2 + ringWidth2);
         mCenterRingPaint.setColor(Color.parseColor("#195EA1"));
         canvas.drawArc(rectF2, 0, 360, true, mCenterRingPaint);
+        canvas.restore();
+    }
+
+    private void drawPointer2(Canvas canvas) {
+        canvas.save();
+        mPointerPaint.setColor(Color.RED);
+        // 初始时旋转到0的位置
+        canvas.rotate(310, getMeasuredWidth() / 2, getMeasuredHeight() / 2);
+        canvas.rotate(currentDegree, getMeasuredWidth() / 2, getMeasuredHeight() / 2);
+
+        canvas.drawLine(getMeasuredWidth() / 2,  500, getMeasuredHeight() / 2, getMeasuredWidth() / 2,
+                mPointerPaint);
+        canvas.drawCircle(getMeasuredWidth() / 2, getMeasuredHeight() / 2, 8, mPointerPaint);
+
         canvas.restore();
     }
 

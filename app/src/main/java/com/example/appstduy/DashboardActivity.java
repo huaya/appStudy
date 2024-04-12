@@ -9,8 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.appstduy.util.CanvaTestView;
-
 import java.util.Random;
 
 /**
@@ -27,6 +25,9 @@ public class DashboardActivity extends Activity implements View.OnClickListener 
     private DashboardView dashboardView;
 
     private CanvaTestView canvaTestView;
+
+    private CircleMeterView circleMeterView;
+
 
     private Button button;
 
@@ -51,6 +52,7 @@ public class DashboardActivity extends Activity implements View.OnClickListener 
         setContentView(R.layout.activity_dashboard);
         dashboardView = findViewById(R.id.scal_blu);
         canvaTestView = findViewById(R.id.canva_test);
+        circleMeterView = findViewById(R.id.circle_meter);
         button = findViewById(R.id.start_test);
         button.setOnClickListener(this);
     }
@@ -58,7 +60,8 @@ public class DashboardActivity extends Activity implements View.OnClickListener 
     @Override
     public void onClick(View view) {
         testTime = 0;
-        handler.sendEmptyMessageDelayed(START_TEST_MSG, 0);
+        startTest();
+//        handler.sendEmptyMessageDelayed(START_TEST_MSG, 0);
     }
 
     private void startTest() {
@@ -67,5 +70,6 @@ public class DashboardActivity extends Activity implements View.OnClickListener 
         int speed= random.nextInt(180);
         dashboardView.udDataSpeed(speed);
         canvaTestView.udDataSpeed(speed);
+        circleMeterView.setProgress(random.nextInt(100));
     }
 }
