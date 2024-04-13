@@ -133,6 +133,7 @@ public class CircleMeterView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        setVisibility(View.VISIBLE);
         super.onDraw(canvas);
         drawArcScale(canvas);
         drawArcInside(canvas);
@@ -267,7 +268,6 @@ public class CircleMeterView extends View {
 
         // 设置中间文字显示的数值
         this.value = (float) (progress * 0.08);
-
         invalidate();
     }
 
