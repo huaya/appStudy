@@ -17,10 +17,7 @@ public class FirstFragment extends Fragment {
     private FragmentFirstBinding binding;
 
     @Override
-    public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState
-    ) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentFirstBinding.inflate(inflater, container, false);
         return binding.getRoot();
@@ -30,17 +27,13 @@ public class FirstFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.buttonFirst.setOnClickListener(view1 -> NavHostFragment.findNavController(FirstFragment.this)
-                .navigate(R.id.action_FirstFragment_to_SecondFragment));
+        binding.buttonFirst.setOnClickListener(view1 -> NavHostFragment.findNavController(FirstFragment.this).navigate(R.id.action_FirstFragment_to_SecondFragment));
 
-        binding.toQuiz.setOnClickListener(v -> NavHostFragment.findNavController(FirstFragment.this)
-                .navigate(R.id.action_To_Quiz));
+        binding.toQuiz.setOnClickListener(v -> NavHostFragment.findNavController(FirstFragment.this).navigate(R.id.action_To_Quiz));
 
-        binding.toHilink.setOnClickListener(v -> NavHostFragment.findNavController(FirstFragment.this)
-                .navigate(R.id.action_To_hilink));
+        binding.toHilink.setOnClickListener(v -> NavHostFragment.findNavController(FirstFragment.this).navigate(R.id.action_To_hilink));
 
-        binding.toDashboard.setOnClickListener(v -> NavHostFragment.findNavController(FirstFragment.this)
-                .navigate(R.id.action_To_Dashboard));
+        binding.toDashboard.setOnClickListener(v -> NavHostFragment.findNavController(FirstFragment.this).navigate(R.id.action_To_Dashboard));
     }
 
     @Override
