@@ -1,19 +1,23 @@
 package com.example.appstduy;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.graphics.Color;
-import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.navigation.fragment.NavHostFragment;
-
 import com.example.appstduy.databinding.FragmentHilinkBinding;
+import com.example.appstduy.util.DensityUtil;
 import com.example.appstduy.view.MessageView;
 
 import java.util.ArrayList;
@@ -63,6 +67,8 @@ public class HilinkFragment extends Fragment {
     public static HilinkFragment newInstance(String param1, String param2) {
         HilinkFragment fragment = new HilinkFragment();
         Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -79,11 +85,44 @@ public class HilinkFragment extends Fragment {
         handler.post(task);
         binding.showSwitcher.setOnClickListener(v -> {
             binding.messageView.setVisibility(View.VISIBLE);
-            binding.messageView2.setVisibility(View.GONE);
+            binding.messageView2.setVisibility(View.INVISIBLE);
         });
         binding.showUnread.setOnClickListener(v -> {
-            binding.messageView.setVisibility(View.GONE);
-            binding.messageView2.setVisibility(View.VISIBLE);
+            ValueAnimator valueAnimator1 = ValueAnimator.ofInt(0, 300);
+            valueAnimator1.setDuration(450);
+
+            ValueAnimator valueAnimator2 = ValueAnimator.ofInt(40, 25);
+            valueAnimator2.setDuration(450);
+
+            TransitionDrawable transitionDrawable = (TransitionDrawable) requireContext().getDrawable(R.drawable.transition);
+            binding.messageView.setBackground(transitionDrawable);
+            transitionDrawable.startTransition(450);
+
+            ViewGroup.LayoutParams layoutParams = binding.messageView.getLayoutParams();
+            int height = layoutParams.height;
+
+            AnimatorSet animatorSet = new AnimatorSet();
+            animatorSet.playTogether(valueAnimator1, valueAnimator2);
+
+            valueAnimator1.addUpdateListener(animation -> {
+                int curValue = (int) animation.getAnimatedValue();
+                ViewGroup.LayoutParams layoutParams1 = binding.messageView.getLayoutParams();
+                layoutParams1.height = height + curValue;
+                binding.messageView.setLayoutParams(layoutParams1);
+            });
+
+            valueAnimator2.addUpdateListener(animation -> {
+                int curValue = (int) animation.getAnimatedValue();
+                ViewGroup.LayoutParams imageLayout = binding.imageView.getLayoutParams();
+                int curLay = DensityUtil.dip2px(requireContext(), curValue);
+                imageLayout.height = curLay;
+                imageLayout.width = curLay;
+                binding.imageView.setLayoutParams(imageLayout);
+            });
+            animatorSet.start();
+
+            binding.messageView.setVisibility(View.VISIBLE);
+            binding.messageView2.setVisibility(View.INVISIBLE);
         });
     }
 
