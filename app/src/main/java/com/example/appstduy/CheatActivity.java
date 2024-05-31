@@ -35,7 +35,6 @@ public class CheatActivity extends AppCompatActivity {
     private TextView mWarningText;
 
     @SuppressLint("SetTextI18n")
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,20 +53,18 @@ public class CheatActivity extends AppCompatActivity {
             mAnswerTextView.setText(mAnswerIsTrue ? R.string.true_button : R.string.false_button);
             setAnswerShownResult(true);
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                int cx = mShowAnswer.getWidth() / 2;
-                int cy = mShowAnswer.getHeight() / 2;
-                float radius = mShowAnswer.getWidth();
-                Animator anim = ViewAnimationUtils.createCircularReveal(mShowAnswer, cx, cy, radius, 0);
-                anim.addListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        super.onAnimationEnd(animation);
-//                        mShowAnswer.setVisibility(View.INVISIBLE);
-                    }
-                });
-                anim.start();
-            }
+            int cx = mShowAnswer.getWidth() / 2;
+            int cy = mShowAnswer.getHeight() / 2;
+            float radius = mShowAnswer.getWidth();
+            Animator anim = ViewAnimationUtils.createCircularReveal(mShowAnswer, cx, cy, radius, 0);
+            anim.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    mShowAnswer.setVisibility(View.INVISIBLE);
+                }
+            });
+            anim.start();
         });
     }
 
