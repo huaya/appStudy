@@ -6,6 +6,8 @@
     android:layout_width="match_parent"
     android:background="@color/blue"
     android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     tools:context=".HilinkFragment">
 
     <LinearLayout
@@ -15,6 +17,8 @@
         android:layout_marginTop="200dp"
         android:background="@drawable/ic_message_bord"
         android:orientation="horizontal"
+        android:clipChildren="false"
+        android:clipToPadding="false"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -25,11 +29,15 @@
             android:layout_gravity="start|top"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
             android:background="@drawable/icon_quan_select">
         </ImageView>
         <LinearLayout
             android:layout_width="wrap_content"
             android:orientation="vertical"
+            android:clipChildren="false"
+            android:clipToPadding="false"
             android:layout_height="match_parent" >
             <TextView
                 android:id="@+id/message_title"
@@ -38,6 +46,8 @@
                 android:layout_gravity="start|top"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:text="留言板" />
@@ -47,6 +57,8 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginStart="5dp"
+                android:clipChildren="false"
+                android:clipToPadding="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -58,6 +70,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
         android:orientation="vertical"
+        android:clipChildren="false"
+        android:clipToPadding="false"
         android:background="@drawable/ic_message_bord_unread"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,6 +80,8 @@
             android:id="@+id/title_view"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:clipChildren="false"
+            android:clipToPadding="false"
             android:orientation="horizontal">
             <ImageView
                 android:id="@+id/image_view2"
@@ -88,29 +104,51 @@
                 android:textColor="@color/black"
                 android:text="留言板" />
         </LinearLayout>
+
+        <View
+            android:id="@+id/message_line"
+            android:layout_width="match_parent"
+            android:layout_height="0.6dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="2dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="#30000000">
+        </View>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/unread_title"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="25dp"
                 android:layout_gravity="start|top"
+                android:clipChildren="false"
+                android:clipToPadding="false"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:fontFamily="sans-serif-black"
                 android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:text="妈妈" />
             <TextView
                 android:id="@+id/message_unread"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
                 android:textSize="16sp"
                 android:fontFamily="sans-serif"
                 android:layout_marginBottom="10dp"
                 android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:text="中国留学生国外坠亡 离毕业不到10天中国留学生国外坠亡 离毕业不到10天中国留学生国外坠亡 离毕业不到10天中国留学生国外坠亡 离毕业不到10天"
                 />
         </LinearLayout>

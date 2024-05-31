@@ -92,7 +92,7 @@ public class HilinkFragment extends Fragment {
         binding.showUnread.setOnClickListener(v -> {
             binding.imageView.setVisibility(View.INVISIBLE);
             binding.messageView2.setVisibility(View.VISIBLE);
-            int duration = 5000;
+            int duration = 450;
             handler.removeCallbacks(task);
 
             TransitionDrawable transitionDrawable = (TransitionDrawable) requireContext().getDrawable(R.drawable.transition);
@@ -103,11 +103,18 @@ public class HilinkFragment extends Fragment {
             ValueAnimator valueAnimator2 = ValueAnimator.ofInt(40, 25);
             ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(binding.messageTitle2, "alpha", 0.0f, 1.0f);
             ObjectAnimator objectAnimator2 = ObjectAnimator.ofFloat(binding.unreadTitle, "alpha", 0.0f, 1.0f);
-            ObjectAnimator animatorX = ObjectAnimator.ofFloat(binding.unreadTitle, "TranslationX", 100, 0);
-            ObjectAnimator animatorY = ObjectAnimator.ofFloat(binding.unreadTitle, "translationY", -30, 0);
+            ObjectAnimator animatorX = ObjectAnimator.ofFloat(binding.unreadTitle, "TranslationX", 120, 0);
+            ObjectAnimator animatorY = ObjectAnimator.ofFloat(binding.unreadTitle, "TranslationY", -55, 0);
 
-            ObjectAnimator transTitle = ObjectAnimator.ofFloat(binding.messageTitle, "TranslationX", 0, -100);
-            ObjectAnimator alphaTitle = ObjectAnimator.ofFloat(binding.messageTitle, "alpha", 1.0f, 0.0f);
+            ObjectAnimator objectAnimator3 = ObjectAnimator.ofFloat(binding.messageUnread, "alpha", 1f, 1.0f);
+            ObjectAnimator animatorY2 = ObjectAnimator.ofFloat(binding.messageUnread, "TranslationY", -70, 0);
+
+            ObjectAnimator messageLineY = ObjectAnimator.ofFloat(binding.messageLine, "TranslationY", -100, 0);
+            ObjectAnimator messageLineAlpha = ObjectAnimator.ofFloat(binding.messageLine, "alpha", 0.0f, 1.0f);
+
+
+            ObjectAnimator transTitle = ObjectAnimator.ofFloat(binding.messageTitle, "TranslationX", 0, -120);
+            ObjectAnimator alphaTitle = ObjectAnimator.ofFloat(binding.messageTitle, "alpha", 1.0f,  0.0f, 0.0f);
             MessageView messageView = (MessageView) binding.messageSwitcher.getCurrentView();
             ObjectAnimator alphaMessage = ObjectAnimator.ofFloat(binding.messageView, "alpha", 0.8f, 0.0f);
 
@@ -126,7 +133,7 @@ public class HilinkFragment extends Fragment {
             animatorSet.setDuration(duration);
             animatorSet.playTogether(valueAnimator1, valueAnimator2, objectAnimator, objectAnimator2, animatorX, animatorY,
                     transTitle, alphaTitle, alphaColon, alphaContent, transContentX, transContentY, alphaMessage,
-                    alphaTitle2, transTitleX, transTitleY);
+                    alphaTitle2, transTitleX, transTitleY, messageLineY, messageLineAlpha, objectAnimator3, animatorY2);
 
             valueAnimator1.addUpdateListener(animation -> {
                 int curValue = (int) animation.getAnimatedValue();
