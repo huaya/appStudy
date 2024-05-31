@@ -1,6 +1,7 @@
 package com.example.appstduy;
 
 import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
@@ -11,6 +12,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.example.appstduy.databinding.FragmentHilinkBinding;
 import com.example.appstduy.util.DensityUtil;
@@ -32,12 +37,12 @@ public class HilinkFragment extends Fragment {
         public void run() {
             if (marker < texts.size()) {
                 MessageView messageView = (MessageView) binding.messageSwitcher.getNextView();
-                messageView.refreshText("妈妈：", texts.get(marker++));
+                messageView.refreshText("妈妈", texts.get(marker++));
                 binding.messageSwitcher.showNext();
             } else {
                 marker = 0;
                 MessageView messageView = (MessageView) binding.messageSwitcher.getNextView();
-                messageView.refreshText("妈妈：", texts.get(marker));
+                messageView.refreshText("妈妈", texts.get(marker));
                 binding.messageSwitcher.showNext();
             }
             handler.postDelayed(this, 4000);
@@ -81,42 +86,64 @@ public class HilinkFragment extends Fragment {
             binding.messageView.setVisibility(View.VISIBLE);
             binding.messageView2.setVisibility(View.INVISIBLE);
         });
-        binding.showUnread.setOnClickListener(v -> {
-            ValueAnimator valueAnimator1 = ValueAnimator.ofInt(0, 300);
-            valueAnimator1.setDuration(450);
 
-            ValueAnimator valueAnimator2 = ValueAnimator.ofInt(40, 25);
-            valueAnimator2.setDuration(450);
+        binding.messageView2.setVisibility(View.INVISIBLE);
+
+        binding.showUnread.setOnClickListener(v -> {
+            binding.imageView.setVisibility(View.INVISIBLE);
+            binding.messageView2.setVisibility(View.VISIBLE);
+            int duration = 5000;
+            handler.removeCallbacks(task);
 
             TransitionDrawable transitionDrawable = (TransitionDrawable) requireContext().getDrawable(R.drawable.transition);
-            binding.messageView.setBackground(transitionDrawable);
-            transitionDrawable.startTransition(450);
+            binding.messageView2.setBackground(transitionDrawable);
+            transitionDrawable.startTransition(duration);
+
+            ValueAnimator valueAnimator1 = ValueAnimator.ofInt(0, 300);
+            ValueAnimator valueAnimator2 = ValueAnimator.ofInt(40, 25);
+            ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(binding.messageTitle2, "alpha", 0.0f, 1.0f);
+            ObjectAnimator objectAnimator2 = ObjectAnimator.ofFloat(binding.unreadTitle, "alpha", 0.0f, 1.0f);
+            ObjectAnimator animatorX = ObjectAnimator.ofFloat(binding.unreadTitle, "TranslationX", 100, 0);
+            ObjectAnimator animatorY = ObjectAnimator.ofFloat(binding.unreadTitle, "translationY", -30, 0);
+
+            ObjectAnimator transTitle = ObjectAnimator.ofFloat(binding.messageTitle, "TranslationX", 0, -100);
+            ObjectAnimator alphaTitle = ObjectAnimator.ofFloat(binding.messageTitle, "alpha", 1.0f, 0.0f);
+            MessageView messageView = (MessageView) binding.messageSwitcher.getCurrentView();
+            ObjectAnimator alphaMessage = ObjectAnimator.ofFloat(binding.messageView, "alpha", 0.8f, 0.0f);
+
+            ObjectAnimator alphaColon = ObjectAnimator.ofFloat(messageView.getColonView(), "alpha", 1.0f, 0.0f);
+            ObjectAnimator alphaContent = ObjectAnimator.ofFloat(messageView.getContentView(), "alpha", 1.0f, 0.0f);
+            ObjectAnimator transContentX = ObjectAnimator.ofFloat(messageView.getContentView(), "TranslationX", 0, -100);
+            ObjectAnimator transContentY = ObjectAnimator.ofFloat(messageView.getContentView(), "TranslationY", 0, 100);
+            ObjectAnimator alphaTitle2 = ObjectAnimator.ofFloat(messageView.getTitleView(), "alpha", 1.0f, 0.0f);
+            ObjectAnimator transTitleX = ObjectAnimator.ofFloat(messageView.getTitleView(), "TranslationX", 0, -100);
+            ObjectAnimator transTitleY = ObjectAnimator.ofFloat(messageView.getTitleView(), "TranslationY", 0, 30);
 
             ViewGroup.LayoutParams layoutParams = binding.messageView.getLayoutParams();
             int height = layoutParams.height;
 
             AnimatorSet animatorSet = new AnimatorSet();
-            animatorSet.playTogether(valueAnimator1, valueAnimator2);
+            animatorSet.setDuration(duration);
+            animatorSet.playTogether(valueAnimator1, valueAnimator2, objectAnimator, objectAnimator2, animatorX, animatorY,
+                    transTitle, alphaTitle, alphaColon, alphaContent, transContentX, transContentY, alphaMessage,
+                    alphaTitle2, transTitleX, transTitleY);
 
             valueAnimator1.addUpdateListener(animation -> {
                 int curValue = (int) animation.getAnimatedValue();
-                ViewGroup.LayoutParams layoutParams1 = binding.messageView.getLayoutParams();
+                ViewGroup.LayoutParams layoutParams1 = binding.messageView2.getLayoutParams();
                 layoutParams1.height = height + curValue;
-                binding.messageView.setLayoutParams(layoutParams1);
+                binding.messageView2.setLayoutParams(layoutParams1);
             });
 
             valueAnimator2.addUpdateListener(animation -> {
                 int curValue = (int) animation.getAnimatedValue();
-                ViewGroup.LayoutParams imageLayout = binding.imageView.getLayoutParams();
+                ViewGroup.LayoutParams imageLayout = binding.imageView2.getLayoutParams();
                 int curLay = DensityUtil.dip2px(requireContext(), curValue);
                 imageLayout.height = curLay;
                 imageLayout.width = curLay;
-                binding.imageView.setLayoutParams(imageLayout);
+                binding.imageView2.setLayoutParams(imageLayout);
             });
             animatorSet.start();
-
-            binding.messageView.setVisibility(View.VISIBLE);
-            binding.messageView2.setVisibility(View.INVISIBLE);
         });
     }
 

@@ -17,6 +17,8 @@ public class MessageView extends LinearLayout {
 
     private TextView titleView;
 
+    private TextView colonView;
+
     private TextView contentView;
 
     public MessageView(Context context) {
@@ -39,20 +41,23 @@ public class MessageView extends LinearLayout {
         inflater.inflate(R.layout.message_view, this, true);
         titleView = findViewById(R.id.title);
         contentView = findViewById(R.id.content);
-    }
-
-    private TextView initTextView() {
-        TextView textView = new TextView(getContext());
-        textView.setTextSize(16);
-        textView.setTypeface(Typeface.SANS_SERIF);
-        textView.setEllipsize(TextUtils.TruncateAt.END);
-        textView.setMaxLines(1);
-        textView.setTextColor(Color.BLACK);
-        return textView;
+        colonView = findViewById(R.id.colon);
     }
 
     public void refreshText(String title, String content) {
         titleView.setText(title);
         contentView.setText(content);
+    }
+
+    public TextView getTitleView() {
+        return titleView;
+    }
+
+    public TextView getColonView() {
+        return colonView;
+    }
+
+    public TextView getContentView() {
+        return contentView;
     }
 }
