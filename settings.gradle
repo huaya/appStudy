@@ -6,6 +6,8 @@ pluginManagement {
         maven { url "https://maven.aliyun.com/repository/central"}
         maven { url "https://maven.aliyun.com/repository/gradle-plugin"}
         maven { url "https://maven.aliyun.com/repository/public"}
+        mavenCentral()
+        google()
     }
 }
 dependencyResolutionManagement {
@@ -17,6 +19,8 @@ dependencyResolutionManagement {
         maven { url "https://maven.aliyun.com/repository/central"}
         maven { url "https://maven.aliyun.com/repository/gradle-plugin"}
         maven { url "https://maven.aliyun.com/repository/public"}
+        mavenCentral()
+        google()
     }
 }
 rootProject.name = "appStduy"

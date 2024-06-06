@@ -1,19 +1,18 @@
 package com.example.appstduy;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.logging.LogManager;
+import androidx.fragment.app.FragmentActivity;
+
 import java.util.logging.Logger;
 
-public class QuizActivity extends AppCompatActivity {
+public class QuizActivity extends FragmentActivity {
 
     private static final String TAG = "QuizActivity";
 

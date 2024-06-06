@@ -1,10 +1,6 @@
 package com.example.appstduy.view;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,15 +21,15 @@ public class MessageView extends LinearLayout {
         this(context, null);
     }
 
-    public MessageView(Context context, @Nullable AttributeSet attrs) {
+    public MessageView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public MessageView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public MessageView(Context context, AttributeSet attrs, int defStyleAttr) {
         this(context, attrs, defStyleAttr, 0);
     }
 
-    public MessageView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public MessageView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         Log.i("MessageView", "oncreate");
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(
