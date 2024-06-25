@@ -12,7 +12,6 @@
         android:orientation="vertical"
         tools:ignore="MissingConstraints">
 
-
         <TextView
             android:id="@+id/question_text_view"
             android:layout_width="349dp"

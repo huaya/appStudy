@@ -102,19 +102,6 @@ public class QuizActivity extends FragmentActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode != Activity.RESULT_OK) {
-            return;
-        }
-        if (requestCode == REQUEST_CODE_CHEAT) {
-            if (data == null) {
-                return;
-            }
-            mIsCheater = CheatActivity.wasAnswerShown(data);
-        }
-    }
-
-    @Override
     protected void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         Log.d(TAG, "onSaveInstanceState(Bundle) called");
