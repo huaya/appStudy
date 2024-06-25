@@ -1,6 +1,8 @@
 package com.example.appstduy;
 
 import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.appstduy.util.LogUtils;
 
@@ -10,7 +12,7 @@ public class QuizViewModel extends ViewModel {
 
     private int mCurrentIndex = 0;
 
-    final Question[] mQuestionBank = new Question[]{
+    private final Question[] mQuestionBank = new Question[]{
             new Question(R.string.question_africa, false),
             new Question(R.string.question_turkey, true),
             new Question(R.string.question_asia, true),
@@ -34,6 +36,32 @@ public class QuizViewModel extends ViewModel {
     }
 
     public void moveToNext() {
-        mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
+        if (canMoveToNext()) {
+            mCurrentIndex++;
+        }
+    }
+
+    public void moveToPrve() {
+        if (canMoveToPrve()) {
+            mCurrentIndex--;
+        }
+    }
+
+    public int getCurrentIndex() {
+        return mCurrentIndex;
+    }
+
+    public Question[] getQuestionBank() {
+        return mQuestionBank;
+    }
+
+    public boolean canMoveToNext() {
+        LogUtils.debug(TAG, "canMoveToNext:%d", mCurrentIndex);
+        return mCurrentIndex < mQuestionBank.length - 1;
+    }
+
+    public boolean canMoveToPrve() {
+        LogUtils.info(TAG, "canMoveToPrve:%d", mCurrentIndex);
+        return mCurrentIndex > 0;
     }
 }

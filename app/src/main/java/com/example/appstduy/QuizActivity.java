@@ -8,8 +8,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProvider;
 
+import java.util.Optional;
 import java.util.logging.Logger;
 
 public class QuizActivity extends FragmentActivity {
@@ -34,37 +38,35 @@ public class QuizActivity extends FragmentActivity {
 
     private TextView mQuestionTextView;
 
-    private final Question[] mQuestionBank = new Question[]{
-            new Question(R.string.question_africa, false),
-            new Question(R.string.question_turkey, true),
-            new Question(R.string.question_asia, true),
-            new Question(R.string.question_oceans, true),
-            new Question(R.string.question_mideast, false),
-            new Question(R.string.question_americas, true)
-    };
-
-    private int mCurrentIndex = 0;
+    private final Lazy<QuizViewModel> quizViewModelLazy = new Lazy<>(() -> new ViewModelProvider(this).get(QuizViewModel.class));
 
     private boolean mIsCheater;
+
+    private ActivityResultLauncher<Intent> mCheatLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                    mIsCheater = CheatActivity.wasAnswerShown(result.getData());
+                }
+            });
+
+    private QuizViewModel getViewModel() {
+        return quizViewModelLazy.get();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate(Bundle) called");
+        // if (savedInstanceState != null) {
+        //     mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
+        //     mIsCheater = savedInstanceState.getBoolean(CHEAT_MARK, false);
+        // }
         setContentView(R.layout.activity_quiz);
-
         mQuestionTextView = findViewById(R.id.question_text_view);
-        if (savedInstanceState != null) {
-            mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
-            mIsCheater = savedInstanceState.getBoolean(CHEAT_MARK, false);
-        }
-        updateQuestion();
         mQuestionTextView.setOnClickListener(view -> {
-            if (mCurrentIndex < mQuestionBank.length) {
-                mCurrentIndex++;
-            }
-            updateQuestion();
+            moveToNext();
         });
+        updateQuestion();
 
         mTrueButton = findViewById(R.id.true_button);
         mTrueButton.setOnClickListener(view -> {
@@ -80,33 +82,39 @@ public class QuizActivity extends FragmentActivity {
 
         mCheatButton = findViewById(R.id.cheat_button);
         mCheatButton.setOnClickListener(view -> {
-            Intent intent = CheatActivity.newIntent(QuizActivity.this, mQuestionBank[mCurrentIndex].isAnswerTrue());
-            startActivityForResult(intent, REQUEST_CODE_CHEAT);
+            mCheatLauncher.launch(CheatActivity.newIntent(QuizActivity.this, getViewModel().currentQuestionAnswer()));
         });
 
         mNextButton = findViewById(R.id.next_button);
         mNextButton.setOnClickListener(view -> {
-            if (mCurrentIndex < mQuestionBank.length - 1) {
-                mCurrentIndex++;
-            }
-            updateQuestion();
+            moveToNext();
         });
 
         mPrveButton = findViewById(R.id.prev_button);
         mPrveButton.setOnClickListener(view -> {
-            if (mCurrentIndex > 0) {
-                mCurrentIndex--;
-            }
+            getViewModel().moveToPrve();
+            Optional.ofNullable(mNextButton).ifPresent(bt -> bt.setClickable(getViewModel().canMoveToNext()));
+            Optional.ofNullable(mPrveButton).ifPresent(bt -> bt.setClickable(getViewModel().canMoveToPrve()));
             updateQuestion();
         });
+        mNextButton.setClickable(getViewModel().canMoveToNext());
+        mPrveButton.setClickable(getViewModel().canMoveToPrve());
+    }
+
+    private void moveToNext() {
+        getViewModel().moveToNext();
+        Optional.ofNullable(mNextButton).ifPresent(bt -> bt.setClickable(getViewModel().canMoveToNext()));
+        Optional.ofNullable(mPrveButton).ifPresent(bt -> bt.setClickable(getViewModel().canMoveToPrve()));
+        updateQuestion();
     }
 
     @Override
     protected void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         Log.d(TAG, "onSaveInstanceState(Bundle) called");
-        savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
-        savedInstanceState.putBoolean(CHEAT_MARK, mIsCheater);
+        // 通过bundle保存页面数据
+        // savedInstanceState.putInt(KEY_INDEX,  getViewModel().getCurrentIndex());
+        // savedInstanceState.putBoolean(CHEAT_MARK, mIsCheater);
     }
 
     @Override
@@ -140,19 +148,19 @@ public class QuizActivity extends FragmentActivity {
     }
 
     private void updateQuestion() {
-        int question = mQuestionBank[mCurrentIndex].getTextResId();
+        int question = getViewModel().currentQuestionText();
         mQuestionTextView.setText(question);
     }
 
     private void checkAnswer(boolean userPressedTrue) {
-        boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
+        boolean answerIsTrue = getViewModel().currentQuestionAnswer();
         int messageResId;
         if (mIsCheater) {
             messageResId = R.string.judgment_toast;
         } else {
-            if (userPressedTrue == answerIsTrue){
+            if (userPressedTrue == answerIsTrue) {
                 messageResId = R.string.correct_toast;
-            } else{
+            } else {
                 messageResId = R.string.incorrect_toast;
             }
         }

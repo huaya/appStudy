@@ -15,8 +15,9 @@ import android.widget.TextView;
 
 import androidx.fragment.app.FragmentActivity;
 
-public class CheatActivity extends FragmentActivity {
+import com.example.appstduy.util.LogUtils;
 
+public class CheatActivity extends FragmentActivity {
     private static final String TAG = "CheatActivity";
 
     public static final String EXTRA_ANSWER_IS_TRUE = "com.bignerdranch.android.geoquiz.answer_is_true";
@@ -36,6 +37,7 @@ public class CheatActivity extends FragmentActivity {
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        LogUtils.info(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cheat);
 
@@ -82,5 +84,4 @@ public class CheatActivity extends FragmentActivity {
     public static boolean wasAnswerShown(Intent result) {
         return result.getBooleanExtra(EXTRA_ANSWER_SHOWN, false);
     }
-
 }
