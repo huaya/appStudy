@@ -24,8 +24,6 @@ public class QuizActivity extends FragmentActivity {
 
     private static final String CHEAT_MARK = "cheat_mark";
 
-    private static final int REQUEST_CODE_CHEAT = 0;
-
     private Button mTrueButton;
 
     private Button mFalseButton;
@@ -42,7 +40,7 @@ public class QuizActivity extends FragmentActivity {
 
     private boolean mIsCheater;
 
-    private ActivityResultLauncher<Intent> mCheatLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+    private final ActivityResultLauncher<Intent> mCheatLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                     mIsCheater = CheatActivity.wasAnswerShown(result.getData());
@@ -57,10 +55,10 @@ public class QuizActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate(Bundle) called");
-        // if (savedInstanceState != null) {
-        //     mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
-        //     mIsCheater = savedInstanceState.getBoolean(CHEAT_MARK, false);
-        // }
+         if (savedInstanceState != null) {
+             getViewModel().setCurrentIndex(savedInstanceState.getInt(KEY_INDEX, 0));
+             mIsCheater = savedInstanceState.getBoolean(CHEAT_MARK, false);
+         }
         setContentView(R.layout.activity_quiz);
         mQuestionTextView = findViewById(R.id.question_text_view);
         mQuestionTextView.setOnClickListener(view -> {
@@ -112,9 +110,16 @@ public class QuizActivity extends FragmentActivity {
     protected void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         Log.d(TAG, "onSaveInstanceState(Bundle) called");
+
+        // 只要在未结束使用的activity进入停止状态时（比如用户按了Home按钮，启动另一个应用时），操作系统都
+        // 会调用Activity.onSaveInstanceState(Bundle)。这个时间点很重要，因为停止的activity会被标记
+        // 为killable。如果应用进程因低优先级被“杀死”，那么，你大可放心
+        // Activity.onSaveInstanceState(Bundle)肯定已被调用过。
+        // onSaveInstanceState(Bundle)的默认实现要求所有activity视图将自身状态数据保存在Bundle对象
+        // 中。Bundle是存储字符串键与特定类型值之间映射关系（键值对）的一种结构。
         // 通过bundle保存页面数据
-        // savedInstanceState.putInt(KEY_INDEX,  getViewModel().getCurrentIndex());
-        // savedInstanceState.putBoolean(CHEAT_MARK, mIsCheater);
+         savedInstanceState.putInt(KEY_INDEX,  getViewModel().getCurrentIndex());
+         savedInstanceState.putBoolean(CHEAT_MARK, mIsCheater);
     }
 
     @Override
