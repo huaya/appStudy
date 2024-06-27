@@ -27,6 +27,8 @@ public class MessageView extends LinearLayout {
 
     public MessageView(Context context, AttributeSet attrs, int defStyleAttr) {
         this(context, attrs, defStyleAttr, 0);
+        setClipChildren(false);
+        setClipToPadding(false);
     }
 
     public MessageView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {

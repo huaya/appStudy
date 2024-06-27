@@ -64,4 +64,8 @@ public class QuizViewModel extends ViewModel {
         LogUtils.info(TAG, "canMoveToPrve:%d", mCurrentIndex);
         return mCurrentIndex > 0;
     }
+
+    public void setCurrentIndex(int currentIndex) {
+        mCurrentIndex = currentIndex;
+    }
 }
