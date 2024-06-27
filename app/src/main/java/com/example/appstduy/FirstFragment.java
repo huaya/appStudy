@@ -34,6 +34,7 @@ public class FirstFragment extends Fragment {
         binding.toHilink.setOnClickListener(v -> NavHostFragment.findNavController(FirstFragment.this).navigate(R.id.action_To_hilink));
 
         binding.toDashboard.setOnClickListener(v -> NavHostFragment.findNavController(FirstFragment.this).navigate(R.id.action_To_Dashboard));
+        binding.toCrimeList.setOnClickListener(v -> NavHostFragment.findNavController(FirstFragment.this).navigate(R.id.action_FirstFragment_to_CrimeListActivity));
     }
 
     @Override

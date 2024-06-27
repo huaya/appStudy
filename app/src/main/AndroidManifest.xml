@@ -35,6 +35,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <activity
+            android:name="com.maxlong.criminalintent.view.CrimePagerActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name="com.maxlong.criminalintent.view.CrimeActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.maxlong.criminalintent.view.CrimeListActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
 </manifest>
