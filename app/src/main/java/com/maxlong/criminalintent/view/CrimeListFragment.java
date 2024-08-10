@@ -64,7 +64,7 @@ public class CrimeListFragment extends Fragment {
         }
     }
 
-    private class CrimeHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private class CrimeHolder extends RecyclerView.ViewHolder {
 
         public Crime mCrime;
 
@@ -94,20 +94,6 @@ public class CrimeListFragment extends Fragment {
             mSolvedCheckBox.setOnClickListener(v -> {
                 mCrime.setSolved(mSolvedCheckBox.isChecked());
             });
-        }
-
-        @Override
-        public void onClick(View v) {
-            Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
-            startActivityForResult(intent, REQUEST_CRIME);
-        }
-
-
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CRIME){
         }
     }
 
